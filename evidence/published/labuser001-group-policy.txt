@@ -1,0 +1,12 @@
+Group Policy validation — October 19, 2026
+Excerpt from: gpresult /r /scope:user
+
+RSOP data for GUOTLAB\labuser001 on MGMT01
+
+USER SETTINGS
+    CN=Lab User 001,OU=IT,DC=ad,DC=guotlab,DC=test
+    Group Policy was applied from: DC01.ad.guotlab.test
+    Domain Name: GUOTLAB
+
+Applied Group Policy Objects
+    LAB-IT-ControlPanel-Restriction

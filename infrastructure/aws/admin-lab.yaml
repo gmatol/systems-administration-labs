@@ -1,0 +1,188 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Guot Windows administration lab. Two billable Windows hosts; AD configured
+  manually. No public inbound rules.
+Parameters:
+  WindowsAmi:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-windows-latest/Windows_Server-2025-English-Full-Base
+    Description: Amazon Windows Server Full Base x86 AMI parameter
+Resources:
+  LabVpc:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.77.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+      - Key: Name
+        Value: guot-admin-lab
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+  GatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: LabVpc
+      InternetGatewayId:
+        Ref: InternetGateway
+  LabSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: LabVpc
+      CidrBlock: 10.77.10.0/24
+      MapPublicIpOnLaunch: true
+  LabRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: LabVpc
+  InternetRoute:
+    Type: AWS::EC2::Route
+    DependsOn: GatewayAttachment
+    Properties:
+      RouteTableId:
+        Ref: LabRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId:
+        Ref: InternetGateway
+  SubnetRouteAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId:
+        Ref: LabRouteTable
+      SubnetId:
+        Ref: LabSubnet
+  LabSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId:
+        Ref: LabVpc
+      GroupDescription: SSM access; internal lab traffic only. No public ingress.
+      SecurityGroupEgress:
+      - IpProtocol: '-1'
+        CidrIp: 0.0.0.0/0
+        Description: Updates, SSM and DNS outbound for lab
+  LabInternalIngress:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      GroupId:
+        Ref: LabSecurityGroup
+      SourceSecurityGroupId:
+        Ref: LabSecurityGroup
+      IpProtocol: '-1'
+      Description: Only hosts in this lab security group
+  SsmRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: ec2.amazonaws.com
+          Action: sts:AssumeRole
+      ManagedPolicyArns:
+      - Fn::Sub: arn:${AWS::Partition}:iam::aws:policy/AmazonSSMManagedInstanceCore
+  SsmProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+      - Ref: SsmRole
+  DomainController:
+    Type: AWS::EC2::Instance
+    DependsOn:
+    - InternetRoute
+    - SubnetRouteAssociation
+    - LabInternalIngress
+    Properties:
+      ImageId:
+        Ref: WindowsAmi
+      InstanceType: t3.medium
+      CreditSpecification:
+        CPUCredits: standard
+      IamInstanceProfile:
+        Ref: SsmProfile
+      MetadataOptions:
+        HttpTokens: required
+        HttpEndpoint: enabled
+      NetworkInterfaces:
+      - DeviceIndex: '0'
+        SubnetId:
+          Ref: LabSubnet
+        AssociatePublicIpAddress: true
+        PrivateIpAddress: 10.77.10.10
+        GroupSet:
+        - Ref: LabSecurityGroup
+      BlockDeviceMappings:
+      - DeviceName: /dev/sda1
+        Ebs:
+          VolumeSize: 40
+          VolumeType: gp3
+          Encrypted: true
+          DeleteOnTermination: true
+      Tags:
+      - Key: Name
+        Value: DC01
+      - Key: Project
+        Value: guot-admin-lab
+      - Key: Environment
+        Value: lab
+  MemberServer:
+    Type: AWS::EC2::Instance
+    DependsOn:
+    - InternetRoute
+    - SubnetRouteAssociation
+    - LabInternalIngress
+    Properties:
+      ImageId:
+        Ref: WindowsAmi
+      InstanceType: t3.medium
+      CreditSpecification:
+        CPUCredits: standard
+      IamInstanceProfile:
+        Ref: SsmProfile
+      MetadataOptions:
+        HttpTokens: required
+        HttpEndpoint: enabled
+      NetworkInterfaces:
+      - DeviceIndex: '0'
+        SubnetId:
+          Ref: LabSubnet
+        AssociatePublicIpAddress: true
+        PrivateIpAddress: 10.77.10.20
+        GroupSet:
+        - Ref: LabSecurityGroup
+      BlockDeviceMappings:
+      - DeviceName: /dev/sda1
+        Ebs:
+          VolumeSize: 40
+          VolumeType: gp3
+          Encrypted: true
+          DeleteOnTermination: true
+      Tags:
+      - Key: Name
+        Value: MGMT01
+      - Key: Project
+        Value: guot-admin-lab
+      - Key: Environment
+        Value: lab
+Outputs:
+  DC01InstanceId:
+    Value:
+      Ref: DomainController
+  DC01PrivateIp:
+    Value:
+      Fn::GetAtt:
+      - DomainController
+      - PrivateIp
+  MGMT01InstanceId:
+    Value:
+      Ref: MemberServer
+  MGMT01PrivateIp:
+    Value:
+      Fn::GetAtt:
+      - MemberServer
+      - PrivateIp
+  DomainName:
+    Value: ad.guotlab.test
