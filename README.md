@@ -7,8 +7,12 @@ The first track builds a self-managed Active Directory domain on two Windows Ser
 instances. It covers DNS, PowerShell user provisioning, domain membership, Group Policy
 and incident investigation. Later tracks cover Linux, DHCP/NAT, AWS operations and automation.
 
-**Status: lab materials prepared; environment not deployed; exercises not yet completed.**
-No production experience, success metrics or completed lab outcomes are implied by these files.
+**Status: core Active Directory deployment, user provisioning, member-server domain join,
+and the initial Group Policy exercise were completed and verified during the October 19,
+2026 lab session. Additional validation and troubleshooting exercises remain.**
+
+Read the [completed lab results](docs/completed-ad-lab.md) and the
+[published Group Policy evidence excerpt](evidence/published/labuser001-group-policy.txt).
 
 ## Start here
 
@@ -23,11 +27,11 @@ No production experience, success metrics or completed lab outcomes are implied 
 
 | Track | Scope | Current status |
 |---|---|---|
-| Windows / Active Directory | AD DS, DNS, 150 synthetic accounts / five OUs, domain join, GPO, troubleshooting | Instructions and scripts prepared; execution pending |
+| Windows / Active Directory | AD DS, DNS, 150 synthetic accounts / five OUs, domain join, GPO, troubleshooting | Core deployment, user counts, domain join and first GPO verified; troubleshooting planned |
 | Linux | Users, permissions, systemd, storage, patching, logs, backup/restore | Planned |
 | Networking | DHCP scopes/leases, isolated routing/NAT, DNS and firewall faults | Planned |
-| AWS operations | EC2, IAM, monitoring, backups and incident investigation | Planned |
-| Automation | PowerShell, Bash and Python operational tasks | AD starter scripts prepared; execution pending |
+| AWS operations | EC2, IAM, monitoring, backups and incident investigation | Lab infrastructure deployed with CloudFormation and accessed through SSM; further operations exercises planned |
+| Automation | PowerShell, Bash and Python operational tasks | PowerShell CSV user provisioning executed; further automation planned |
 
 The [roadmap](docs/roadmap.md) preserves all agreed labs without changing the existing
 12-week AI engineering program. Start with one administration session per week.
@@ -54,11 +58,8 @@ Internal security-group traffic is intentionally broad between only these two la
 Windows Firewall remains enabled; later exercises examine narrower rules.
 A server member provides domain-join practice, but is not a Windows 11 workstation.
 
-## What has been checked
+## Validation
 
-See [VALIDATION.md](VALIDATION.md) for exact checks and limits. AWS deployment, Windows
-execution and domain authentication must be verified in the learner's environment.
-
-## Completed lab results
-
-See [verified Active Directory lab results](docs/completed-ad-lab.md).
+[VALIDATION.md](VALIDATION.md) distinguishes starter-package checks, observed lab results
+and checks still pending. The published evidence is an excerpt of the learner's
+`gpresult /r /scope:user` output, captured on October 19, 2026.
