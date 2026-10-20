@@ -1,15 +1,53 @@
 # Lab 05: controlled faults and recovery
 
-**Status: not executed.** Perform one fault at a time on disposable lab resources.
-Keep working RDP/SSM connectivity. Use the incident report template for each.
+**Status: exercise A (wrong DNS on MGMT01) was verified on October 20, 2026.
+Exercises B-D remain pending.** Perform one fault at a time on disposable lab resources.
+Keep a working management connection. Exercise A was completed through interactive SSM
+PowerShell while the separate RDP tunnel issue remained unresolved. Use the incident
+report template for each.
 
 ## A. Wrong DNS on MGMT01
 
-Record the NIC's DNS settings, then temporarily use VPC DNS `10.77.0.2` on MGMT01.
-Run `Resolve-DnsName -Type SRV _ldap._tcp.dc._msdcs.ad.guotlab.test` and
-`nltest /dsgetdc:ad.guotlab.test /force`. Capture results. Cached logins or records can
-still work; a cached result is not proof the DNS change was harmless. Restore DNS to
-`10.77.10.10`, run `Clear-DnsClientCache`, and repeat. Do not change DC01 DNS for this fault.
+[Verified incident report](../../../docs/incidents/2026-10-20-mgmt01-dns-recovery.md)
+and [selected output](../../../evidence/published/2026-10-20-mgmt01-dns-recovery.txt).
+
+Use an administrative Windows PowerShell session on **MGMT01**. Keep the original
+resolver setting available before introducing the fault.
+
+1. Record `hostname` and `Get-DnsClientServerAddress -InterfaceAlias "Ethernet" -AddressFamily IPv4`.
+   Verify the normal LDAP SRV query succeeds with DNS set to `10.77.10.10`.
+2. Temporarily set MGMT01's DNS to VPC resolver `10.77.0.2`, clear the DNS client cache
+   and repeat the SRV query. Record the actual error.
+3. While the incorrect client setting is still active, query DC01 directly using
+   `-Server 10.77.10.10`. A successful direct query isolates the client resolver choice.
+4. Restore DNS to `10.77.10.10`, clear the cache and repeat the normal query without
+   specifying a server.
+5. Run `nltest /dsgetdc:ad.guotlab.test /force` and `Test-ComputerSecureChannel -Verbose`
+   to check domain-controller discovery and the member server's secure channel.
+
+The SRV query used in the session was:
+
+```powershell
+Resolve-DnsName -Name "_ldap._tcp.dc._msdcs.ad.guotlab.test" -Type SRV -DnsOnly
+```
+
+Fault command, on MGMT01:
+
+```powershell
+Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses 10.77.0.2
+Clear-DnsClientCache
+```
+
+Recovery command, on MGMT01:
+
+```powershell
+Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses 10.77.10.10
+Clear-DnsClientCache
+```
+
+Cached logins or records can still work; a cached result is not proof the DNS change was
+harmless. No interactive login failure was demonstrated in this exercise. Do not change
+DC01's DNS configuration for this fault.
 
 ## B. Disabled user
 

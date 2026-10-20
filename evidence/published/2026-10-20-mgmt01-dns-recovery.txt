@@ -1,0 +1,84 @@
+DNS fault and recovery — October 20, 2026
+Source: learner-provided Windows PowerShell output from MGMT01 during the guided lab.
+Format: selected excerpts, condensed for publication; prompts, spacing and command
+line wrapping normalized. Repeated table headers and unrelated lines omitted.
+This is not an automatically collected or complete unedited transcript.
+
+1. BASELINE
+
+PS> hostname
+MGMT01
+
+PS> Get-DnsClientServerAddress -InterfaceAlias "Ethernet" -AddressFamily IPv4
+InterfaceAlias: Ethernet
+InterfaceIndex: 6
+AddressFamily: IPv4
+ServerAddresses: {10.77.10.10}
+
+PS> Resolve-DnsName -Name "_ldap._tcp.dc._msdcs.ad.guotlab.test" -Type SRV
+Name: _ldap._tcp.dc._msdcs.ad.guotlab.test
+Type: SRV
+NameTarget: dc01.ad.guotlab.test
+Priority: 0
+Weight: 100
+Port: 389
+Additional A record: dc01.ad.guotlab.test -> 10.77.10.10
+
+2. CONTROLLED FAULT
+
+PS> Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses 10.77.0.2
+PS> Clear-DnsClientCache
+PS> Resolve-DnsName -Name "_ldap._tcp.dc._msdcs.ad.guotlab.test" -Type SRV -DnsOnly
+Resolve-DnsName : _ldap._tcp.dc._msdcs.ad.guotlab.test : DNS name does not exist
+FullyQualifiedErrorId : DNS_ERROR_RCODE_NAME_ERROR,Microsoft.DnsClient.Commands.ResolveDnsName
+
+3. RESOLVER COMPARISON WHILE THE FAULT WAS ACTIVE
+
+PS> Get-DnsClientServerAddress -InterfaceAlias "Ethernet" -AddressFamily IPv4
+InterfaceAlias: Ethernet
+InterfaceIndex: 6
+AddressFamily: IPv4
+ServerAddresses: {10.77.0.2}
+
+PS> Resolve-DnsName -Name "_ldap._tcp.dc._msdcs.ad.guotlab.test" -Type SRV -Server 10.77.10.10 -DnsOnly
+Name: _ldap._tcp.dc._msdcs.ad.guotlab.test
+Type: SRV
+NameTarget: dc01.ad.guotlab.test
+Priority: 0
+Weight: 100
+Port: 389
+Additional A record: dc01.ad.guotlab.test -> 10.77.10.10
+
+4. RECOVERY
+
+PS> Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses 10.77.10.10
+PS> Clear-DnsClientCache
+
+PS> Get-DnsClientServerAddress -InterfaceAlias "Ethernet" -AddressFamily IPv4
+InterfaceAlias: Ethernet
+InterfaceIndex: 6
+AddressFamily: IPv4
+ServerAddresses: {10.77.10.10}
+
+PS> Resolve-DnsName -Name "_ldap._tcp.dc._msdcs.ad.guotlab.test" -Type SRV -DnsOnly
+Name: _ldap._tcp.dc._msdcs.ad.guotlab.test
+Type: SRV
+NameTarget: dc01.ad.guotlab.test
+Priority: 0
+Weight: 100
+Port: 389
+Additional A record: dc01.ad.guotlab.test -> 10.77.10.10
+
+5. DOMAIN CONNECTIVITY AFTER REPAIR
+
+PS> nltest /dsgetdc:ad.guotlab.test /force
+DC: \\DC01.ad.guotlab.test
+Address: \\10.77.10.10
+Dom Name: ad.guotlab.test
+Forest Name: ad.guotlab.test
+The command completed successfully
+
+PS> Test-ComputerSecureChannel -Verbose
+VERBOSE: Performing the operation "Test-ComputerSecureChannel" on target "MGMT01".
+True
+VERBOSE: The secure channel between the local computer and the domain ad.guotlab.test is in good condition.

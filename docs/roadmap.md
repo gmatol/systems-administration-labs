@@ -1,7 +1,14 @@
 # Administration practice alongside AI engineering
 
-Keep the existing 12-week AI engineering roadmap. Add one administration session each
-week, 60-90 minutes if practical. Finish one checkpoint before starting another.
+Keep the existing 12-week AI engineering curriculum and project sequence.
+
+- Tuesdays and Thursdays: administration labs, 60-90 minutes if practical.
+- Mondays, Wednesdays and Fridays: AI engineering on the existing project.
+- Weekends: optional catch-up or rest.
+
+Study reminders use America/Denver time: AI at 9:00 AM and administration around 9:00 AM.
+Finish one checkpoint before starting another; the table below describes the project
+sequence rather than a requirement to complete each topic in one session.
 
 | Sessions | Track | Practice |
 |---|---|---|
@@ -17,6 +24,10 @@ week, 60-90 minutes if practical. Finish one checkpoint before starting another.
 | 10 | Networking | Separate router/NAT lab and firewall troubleshooting |
 | 11 | AWS | EC2 monitoring, IAM, backup/restore and incident evidence |
 | 12 | Portfolio | Reproduce a lab, review evidence, record a 3-minute demonstration |
+
+**Progress:** core AD setup, account provisioning, domain join and the initial GPO test
+are verified. The MGMT01 DNS fault and recovery exercise is also verified; the remaining
+incident-response exercises are pending.
 
 Sessions 7-12 are scope placeholders, not implemented lab guides. Build them as you reach
 them. DHCP and router/NAT exercises must use an isolated local virtual network or another

@@ -7,12 +7,15 @@ The first track builds a self-managed Active Directory domain on two Windows Ser
 instances. It covers DNS, PowerShell user provisioning, domain membership, Group Policy
 and incident investigation. Later tracks cover Linux, DHCP/NAT, AWS operations and automation.
 
-**Status: core Active Directory deployment, user provisioning, member-server domain join,
-and the initial Group Policy exercise were completed and verified during the October 19,
-2026 lab session. Additional validation and troubleshooting exercises remain.**
+**Status: core Active Directory deployment, user provisioning, member-server domain join
+and the initial Group Policy exercise were verified on October 19, 2026. A controlled
+DNS fault, diagnosis and recovery on MGMT01 were verified on October 20, 2026.
+Additional validation and recovery exercises remain.**
 
 Read the [completed lab results](docs/completed-ad-lab.md) and the
 [published Group Policy evidence excerpt](evidence/published/labuser001-group-policy.txt).
+The [DNS incident report](docs/incidents/2026-10-20-mgmt01-dns-recovery.md) documents a
+failed lookup, resolver comparison, repair and domain-connectivity checks.
 
 ## Start here
 
@@ -27,14 +30,15 @@ Read the [completed lab results](docs/completed-ad-lab.md) and the
 
 | Track | Scope | Current status |
 |---|---|---|
-| Windows / Active Directory | AD DS, DNS, 150 synthetic accounts / five OUs, domain join, GPO, troubleshooting | Core deployment, user counts, domain join and first GPO verified; troubleshooting planned |
+| Windows / Active Directory | AD DS, DNS, 150 synthetic accounts / five OUs, domain join, GPO, troubleshooting | Core deployment, user counts, domain join, first GPO and DNS fault recovery verified; further recovery planned |
 | Linux | Users, permissions, systemd, storage, patching, logs, backup/restore | Planned |
 | Networking | DHCP scopes/leases, isolated routing/NAT, DNS and firewall faults | Planned |
 | AWS operations | EC2, IAM, monitoring, backups and incident investigation | Lab infrastructure deployed with CloudFormation and accessed through SSM; further operations exercises planned |
 | Automation | PowerShell, Bash and Python operational tasks | PowerShell CSV user provisioning executed; further automation planned |
 
 The [roadmap](docs/roadmap.md) preserves all agreed labs without changing the existing
-12-week AI engineering program. Start with one administration session per week.
+12-week AI engineering program. Administration sessions are on Tuesdays and Thursdays;
+AI engineering sessions are on Mondays, Wednesdays and Fridays.
 
 ## Lab design
 
@@ -61,5 +65,5 @@ A server member provides domain-join practice, but is not a Windows 11 workstati
 ## Validation
 
 [VALIDATION.md](VALIDATION.md) distinguishes starter-package checks, observed lab results
-and checks still pending. The published evidence is an excerpt of the learner's
-`gpresult /r /scope:user` output, captured on October 19, 2026.
+and checks still pending. [Published evidence](evidence/published/README.md) includes
+labeled excerpts of learner-provided Group Policy and DNS troubleshooting output.

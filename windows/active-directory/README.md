@@ -1,7 +1,8 @@
 # Active Directory deployment and PowerShell practice
 
-Core deployment and the first user-policy test were verified during the October 19,
-2026 session. Continue your existing AI engineering sessions separately.
+Core deployment and the first user-policy test were verified on October 19, 2026.
+The MGMT01 DNS fault and recovery exercise was verified on October 20, 2026.
+Continue your existing AI engineering sessions separately.
 
 | Order | Exercise | Observed status |
 |---|---|---|
@@ -10,10 +11,11 @@ Core deployment and the first user-policy test were verified during the October 
 | 02 | [Five OUs and 150 users](labs/02-users-and-ous.md) | Creation and departmental counts verified; duplicate-avoidance rerun pending |
 | 03 | [Join member server](labs/03-domain-join.md) | Domain membership and secure channel verified |
 | 04 | [Group Policy](labs/04-group-policy.md) | IT user received Control Panel restriction; gpresult confirmed applied GPO |
-| 05 | [Troubleshoot and recover](labs/05-troubleshooting.md) | Planned; fault and recovery evidence pending |
+| 05 | [Troubleshoot and recover](labs/05-troubleshooting.md) | DNS fault and recovery verified; disabled-user, GPO-link and deleted-object exercises pending |
 
 See [verified results](../../docs/completed-ad-lab.md),
 [Group Policy evidence](../../evidence/published/labuser001-group-policy.txt)
+[DNS incident report](../../docs/incidents/2026-10-20-mgmt01-dns-recovery.md)
 and [validation limits](../../VALIDATION.md).
 
 Run setup and management commands in an elevated **Windows PowerShell 5.1** session on

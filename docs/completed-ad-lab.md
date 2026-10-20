@@ -1,6 +1,8 @@
 # Active Directory Lab — Verified Results
 
-Completed: October 19, 2026
+Core setup completed: October 19, 2026
+
+DNS troubleshooting and recovery verified: October 20, 2026
 
 ## Environment
 - Two Windows Server 2025 instances on AWS.
@@ -21,8 +23,19 @@ Completed: October 19, 2026
 - Confirmed Control Panel was blocked for labuser001.
 - Used gpresult to confirm the policy applied from DC01.
 
+## DNS incident exercise — October 20, 2026
+
+- Recorded a working LDAP SRV lookup with MGMT01 using DC01 for DNS.
+- Introduced an incorrect client DNS setting and captured the resulting lookup failure.
+- Compared the failing default resolver with a successful direct query to DC01.
+- Restored the client DNS setting, cleared the cache and verified the normal lookup.
+- Confirmed domain-controller discovery and a healthy computer secure channel.
+
+[DNS incident report](incidents/2026-10-20-mgmt01-dns-recovery.md)
+
 ## Evidence
-[Group Policy result excerpt](../evidence/published/labuser001-group-policy.txt)
+- [Group Policy result excerpt](../evidence/published/labuser001-group-policy.txt)
+- [DNS fault and recovery excerpts](../evidence/published/2026-10-20-mgmt01-dns-recovery.txt)
 
 ## Planned practice
 Additional Windows, Linux, networking, AWS, and automation exercises.
