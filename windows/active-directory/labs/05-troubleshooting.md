@@ -59,7 +59,7 @@ The completed exercise used labuser002, which was already disabled by provisioni
 On DC01, inspect Enabled, LockedOut and PasswordLastSet, enter a unique password through
 a hidden prompt, reset the password and enable the account. Verify the properties.
 Then test domain credentials from MGMT01 using the report's PowerShell instructions.
-The learner confirmed True; a new desktop sign-in was not tested.
+I confirmed True during the session; I did not test a new desktop sign-in.
 
 For a later controlled-fault comparison, use a dedicated disposable account with a
 known private password. Verify authentication before disabling it, record a new failed

@@ -1,5 +1,5 @@
 DNS fault and recovery — October 20, 2026
-Source: learner-provided Windows PowerShell output from MGMT01 during the guided lab.
+Source: my Windows PowerShell output from MGMT01 during the guided lab.
 Format: selected excerpts, condensed for publication; prompts, spacing and command
 line wrapping normalized. Repeated table headers and unrelated lines omitted.
 This is not an automatically collected or complete unedited transcript.

@@ -2,23 +2,23 @@
 
 **Guot Deng Anyak | Windows, Linux, AWS, networking and automation**
 
-Hands-on infrastructure practice alongside the AI Infrastructure Incident Assistant project.
+I build and troubleshoot infrastructure in these labs alongside my AI Infrastructure Incident Assistant project.
 The first track builds a self-managed Active Directory domain on two Windows Server EC2
 instances. It covers DNS, PowerShell user provisioning, domain membership, Group Policy
 and incident investigation. Later tracks cover Linux, DHCP/NAT, AWS operations and automation.
 
-**Status: core Active Directory deployment, user provisioning, member-server domain join
-and the initial Group Policy exercise were verified on October 19, 2026. A controlled
-DNS fault, diagnosis and recovery on MGMT01 were verified on October 20, 2026.
-Disabled-account recovery and domain credential validation for labuser002 were also
-verified on October 20. Additional validation and recovery exercises remain.**
+**Status: I deployed Active Directory, provisioned users, joined the member server
+and verified the initial Group Policy exercise on October 19, 2026. On October 20,
+I reproduced, diagnosed and repaired a DNS fault on MGMT01. I also recovered the
+disabled labuser002 account and verified its domain credentials from MGMT01.
+Additional validation and recovery exercises remain.**
 
 Read the [completed lab results](docs/completed-ad-lab.md) and the
 [published Group Policy evidence excerpt](evidence/published/labuser001-group-policy.txt).
 The [DNS incident report](docs/incidents/2026-10-20-mgmt01-dns-recovery.md) documents a
 failed lookup, resolver comparison, repair and domain-connectivity checks.
 The [disabled-account recovery report](docs/incidents/2026-10-20-labuser002-account-recovery.md)
-records account-state checks, recovery and learner-confirmed credential validation.
+records how I checked the account, recovered it and confirmed domain credential validation.
 
 ## Start here
 
@@ -69,4 +69,4 @@ A server member provides domain-join practice, but is not a Windows 11 workstati
 
 [VALIDATION.md](VALIDATION.md) distinguishes starter-package checks, observed lab results
 and checks still pending. [Published evidence](evidence/published/README.md) includes
-labeled excerpts of learner-provided Group Policy, DNS troubleshooting and disabled-account recovery results.
+labeled excerpts of my Group Policy, DNS troubleshooting and disabled-account recovery results.

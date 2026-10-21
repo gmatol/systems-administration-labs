@@ -15,18 +15,18 @@ Checks recorded when the original package was prepared:
 
 ## Observed lab results — October 19, 2026
 
-The learner supplied terminal output and screenshots during the guided session:
-- CloudFormation service-side template validation succeeded.
-- The Windows Server 2025 AMI parameter resolved and the stack deployment succeeded.
+I performed these tasks and recorded terminal output and screenshots during my guided session:
+- I validated the CloudFormation template through AWS.
+- I resolved the Windows Server 2025 AMI parameter and deployed the stack.
 - Both Windows instances reported Online in Systems Manager; SSM shell and RDP access worked.
 - DC01 returned domain `ad.guotlab.test` and NetBIOS name `GUOTLAB`.
 - The domain-controller LDAP SRV lookup returned DC01 at `10.77.10.10`.
 - MGMT01 reported domain membership and a healthy secure channel.
 - User counts showed 150 synthetic accounts, with 30 each in IT, HR, Finance, Operations and Support.
-- All 150 accounts were initially disabled; labuser001 was subsequently enabled for testing.
+- I initially created all 150 accounts disabled, then enabled labuser001 for testing.
 - The practice user ran PowerShell on MGMT01 and accessed the domain SYSVOL share.
-- labuser001 was added to MGMT01's local Remote Desktop Users group and signed in.
-- The learner confirmed Control Panel displayed a restrictions message for this user.
+- I added labuser001 to MGMT01's local Remote Desktop Users group and signed in as that user.
+- I confirmed that Control Panel displayed a restrictions message for this user.
 - `gpresult /r /scope:user` identified the IT OU, DC01 as the policy source,
   and `LAB-IT-ControlPanel-Restriction` as an applied GPO.
 
@@ -37,13 +37,13 @@ See the [completed lab summary](docs/completed-ad-lab.md).
 
 ## Observed DNS fault and recovery — October 20, 2026
 
-From learner-provided PowerShell output on MGMT01:
+I recorded the following PowerShell results on MGMT01:
 - Baseline DNS was `10.77.10.10`; the domain LDAP SRV query returned DC01.
-- After switching MGMT01 to `10.77.0.2` and clearing its DNS cache, the default-resolver
+- I switched MGMT01 to `10.77.0.2` and cleared its DNS cache; the default-resolver
   SRV query failed with `DNS_ERROR_RCODE_NAME_ERROR`.
-- While the incorrect setting remained in place, querying `10.77.10.10` explicitly
-  returned the expected SRV record and DC01 address.
-- Restoring `10.77.10.10` and clearing the cache restored the default-resolver query.
+- While the incorrect setting remained in place, I queried `10.77.10.10` explicitly
+  and received the expected SRV record and DC01 address.
+- I restored `10.77.10.10` and cleared the cache, then verified the default-resolver query.
 - `nltest /dsgetdc:ad.guotlab.test /force` returned DC01 and completed successfully.
 - `Test-ComputerSecureChannel -Verbose` returned True and reported a healthy channel.
 
@@ -56,12 +56,12 @@ a DNS-recovery result. A new interactive user login after repair was not tested.
 ## Observed disabled-account recovery — October 20, 2026
 
 - On DC01, labuser002 initially showed Enabled False, LockedOut False and a blank PasswordLastSet.
-- After the instructed password reset and enablement, pasted output showed Enabled True,
+- I reset the password, enabled the account and recorded output showing Enabled True,
   LockedOut False and PasswordLastSet populated.
-- After connecting to MGMT01, the learner confirmed that the instructed
-  PrincipalContext.ValidateCredentials test returned True. This was a brief confirmation,
-  not a pasted complete authentication transcript.
-- No new desktop sign-in, lockout recovery or failed-authentication baseline was demonstrated.
+- I connected to MGMT01, ran the PrincipalContext.ValidateCredentials test and confirmed
+  True during the study session. I recorded a brief confirmation rather than pasting
+  the complete authentication transcript.
+- I did not test a new desktop sign-in, lockout recovery or failed-authentication baseline.
 
 See the [account recovery report](docs/incidents/2026-10-20-labuser002-account-recovery.md)
 and [selected evidence](evidence/published/2026-10-20-labuser002-account-recovery.txt).
