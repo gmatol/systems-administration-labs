@@ -7,6 +7,10 @@ Reviewed results from completed lab sessions:
 - [DNS fault and recovery](2026-10-20-mgmt01-dns-recovery.txt): selected, condensed
   excerpts of learner-provided PowerShell output, October 20, 2026.
 
+- [Disabled-account recovery](2026-10-20-labuser002-account-recovery.txt): selected
+  account-state output and a separately labeled learner-confirmed authentication result,
+  October 20, 2026.
+
 The excerpts identify their source and omissions. They are not full unedited
 transcripts or automated test logs. Keep original/private output under ignored
 `evidence/local/`. Publish only reviewed results without credentials.

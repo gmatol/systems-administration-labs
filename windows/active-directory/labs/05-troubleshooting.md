@@ -1,7 +1,8 @@
 # Lab 05: controlled faults and recovery
 
 **Status: exercise A (wrong DNS on MGMT01) was verified on October 20, 2026.
-Exercises B-D remain pending.** Perform one fault at a time on disposable lab resources.
+Exercise B account recovery and credential validation were also verified that day;
+a failed-authentication comparison and exercises C-D remain pending.** Perform one fault at a time on disposable lab resources.
 Keep a working management connection. Exercise A was completed through interactive SSM
 PowerShell while the separate RDP tunnel issue remained unresolved. Use the incident
 report template for each.
@@ -51,10 +52,19 @@ DC01's DNS configuration for this fault.
 
 ## B. Disabled user
 
-Enable a disposable user with its own password, verify authentication with runas, then
-`Disable-ADAccount labuser001` on DC01. Try a NEW authentication, record the exact error,
-inspect `Get-ADUser labuser001 -Properties Enabled`, restore with `Enable-ADAccount`,
-and retest. Existing sessions may persist and must not be mistaken for a new login.
+[Verified account recovery report](../../../docs/incidents/2026-10-20-labuser002-account-recovery.md) and
+[selected evidence](../../../evidence/published/2026-10-20-labuser002-account-recovery.txt).
+
+The completed exercise used labuser002, which was already disabled by provisioning.
+On DC01, inspect Enabled, LockedOut and PasswordLastSet, enter a unique password through
+a hidden prompt, reset the password and enable the account. Verify the properties.
+Then test domain credentials from MGMT01 using the report's PowerShell instructions.
+The learner confirmed True; a new desktop sign-in was not tested.
+
+For a later controlled-fault comparison, use a dedicated disposable account with a
+known private password. Verify authentication before disabling it, record a new failed
+authentication after disabling, restore the account, and verify again. That comparison
+has not yet been completed. Existing sessions may persist after account disablement.
 
 ## C. Missing GPO link
 

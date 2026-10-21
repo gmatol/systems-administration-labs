@@ -53,13 +53,28 @@ The exercise used an interactive SSM PowerShell session. The RDP port-forwarding
 connection failed before fault injection and remains unresolved; it is not counted as
 a DNS-recovery result. A new interactive user login after repair was not tested.
 
+## Observed disabled-account recovery — October 20, 2026
+
+- On DC01, labuser002 initially showed Enabled False, LockedOut False and a blank PasswordLastSet.
+- After the instructed password reset and enablement, pasted output showed Enabled True,
+  LockedOut False and PasswordLastSet populated.
+- After connecting to MGMT01, the learner confirmed that the instructed
+  PrincipalContext.ValidateCredentials test returned True. This was a brief confirmation,
+  not a pasted complete authentication transcript.
+- No new desktop sign-in, lockout recovery or failed-authentication baseline was demonstrated.
+
+See the [account recovery report](docs/incidents/2026-10-20-labuser002-account-recovery.md)
+and [selected evidence](evidence/published/2026-10-20-labuser002-account-recovery.txt).
+The account was already disabled by provisioning; a full disable/fail/restore comparison
+remains pending.
+
 ## Checks and exercises still pending
 
 - Full domain-controller health checks, including dcdiag.
 - Re-running the provisioning script to verify duplicate avoidance in the live domain.
 - Running every supplied PowerShell script end to end; some setup steps were performed manually.
 - Group Policy rollback and comparison with an unaffected user.
-- Remaining disabled-user, GPO-link and deleted-object recovery exercises; backup/restore and tighter firewall exercises.
+- Full disabled-user failed-authentication comparison, GPO-link and deleted-object recovery exercises; backup/restore and tighter firewall exercises.
 - Investigating the separate RDP/SSM port-forwarding connection issue.
 - Linux, DHCP/NAT and the remaining AWS and automation tracks.
 

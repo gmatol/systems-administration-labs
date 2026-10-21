@@ -1,0 +1,41 @@
+Disabled AD account recovery — session October 20, 2026 (America/Denver)
+Source: learner-provided PowerShell output and a brief learner confirmation.
+Format: selected excerpts; table spacing and prompts normalized.
+This is not a complete unedited transcript or an automated test log.
+
+1. BEFORE RECOVERY — DC01
+
+Command:
+Get-ADUser -Identity labuser002 -Properties LockedOut, PasswordLastSet |
+    Select-Object SamAccountName, Enabled, LockedOut, PasswordLastSet
+
+Observed:
+SamAccountName: labuser002
+Enabled: False
+LockedOut: False
+PasswordLastSet: [blank]
+
+2. AFTER PASSWORD RESET AND ENABLEMENT — DC01
+
+Same verification command.
+
+Observed:
+SamAccountName: labuser002
+Enabled: True
+LockedOut: False
+PasswordLastSet: 10/21/2026 12:46:03 AM
+
+Timestamp preserved as displayed; server display timezone not independently verified.
+
+3. DOMAIN AUTHENTICATION — MGMT01
+
+The learner confirmed hostname MGMT01, then was instructed to call:
+$domainContext.ValidateCredentials('labuser002', $testCredential.Password)
+
+The password was entered through Read-Host -AsSecureString.
+In response to the request for True, False, or an error, the learner replied:
+true
+
+This final result is a learner confirmation, not a pasted full command transcript.
+No desktop/RDP login or failed-authentication baseline was supplied for this account.
+No password is included.

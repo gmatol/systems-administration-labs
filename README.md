@@ -10,12 +10,15 @@ and incident investigation. Later tracks cover Linux, DHCP/NAT, AWS operations a
 **Status: core Active Directory deployment, user provisioning, member-server domain join
 and the initial Group Policy exercise were verified on October 19, 2026. A controlled
 DNS fault, diagnosis and recovery on MGMT01 were verified on October 20, 2026.
-Additional validation and recovery exercises remain.**
+Disabled-account recovery and domain credential validation for labuser002 were also
+verified on October 20. Additional validation and recovery exercises remain.**
 
 Read the [completed lab results](docs/completed-ad-lab.md) and the
 [published Group Policy evidence excerpt](evidence/published/labuser001-group-policy.txt).
 The [DNS incident report](docs/incidents/2026-10-20-mgmt01-dns-recovery.md) documents a
 failed lookup, resolver comparison, repair and domain-connectivity checks.
+The [disabled-account recovery report](docs/incidents/2026-10-20-labuser002-account-recovery.md)
+records account-state checks, recovery and learner-confirmed credential validation.
 
 ## Start here
 
@@ -30,7 +33,7 @@ failed lookup, resolver comparison, repair and domain-connectivity checks.
 
 | Track | Scope | Current status |
 |---|---|---|
-| Windows / Active Directory | AD DS, DNS, 150 synthetic accounts / five OUs, domain join, GPO, troubleshooting | Core deployment, user counts, domain join, first GPO and DNS fault recovery verified; further recovery planned |
+| Windows / Active Directory | AD DS, DNS, 150 synthetic accounts / five OUs, domain join, GPO, troubleshooting | Core deployment, user counts, domain join, first GPO, DNS fault recovery and disabled-account recovery verified; further recovery planned |
 | Linux | Users, permissions, systemd, storage, patching, logs, backup/restore | Planned |
 | Networking | DHCP scopes/leases, isolated routing/NAT, DNS and firewall faults | Planned |
 | AWS operations | EC2, IAM, monitoring, backups and incident investigation | Lab infrastructure deployed with CloudFormation and accessed through SSM; further operations exercises planned |
@@ -66,4 +69,4 @@ A server member provides domain-join practice, but is not a Windows 11 workstati
 
 [VALIDATION.md](VALIDATION.md) distinguishes starter-package checks, observed lab results
 and checks still pending. [Published evidence](evidence/published/README.md) includes
-labeled excerpts of learner-provided Group Policy and DNS troubleshooting output.
+labeled excerpts of learner-provided Group Policy, DNS troubleshooting and disabled-account recovery results.
