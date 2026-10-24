@@ -1,0 +1,10 @@
+# Local tooling, credentials, state, and plan artifacts
+.terraform/
+*.tfstate*
+*.tfplan
+*.plan
+*.tfvars
+*.tfvars.json
+crash.log
+crash.*.log
+# Commit .terraform.lock.hcl after a successful init; it is not a credential.
