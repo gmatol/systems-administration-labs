@@ -1,0 +1,25 @@
+name: Terraform practice checks
+on:
+  pull_request:
+    paths:
+      - 'practice/terraform-network/**'
+      - '.github/workflows/terraform-practice.yml'
+permissions:
+  contents: read
+jobs:
+  mock-network:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: practice/terraform-network
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.13.5
+      - run: terraform init -backend=false -input=false
+      - run: terraform fmt -check -recursive
+      - run: terraform validate
+      # Uses mock_provider aws and explicit command = plan in every run.
+      # No AWS credentials, deployment or state import.
+      - run: terraform test -verbose
