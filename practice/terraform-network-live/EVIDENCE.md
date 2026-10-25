@@ -1,23 +1,60 @@
 # Deployment evidence
 
-**Status: deployment not yet demonstrated.**
+**Status: initial AWS deployment and state reconciliation demonstrated on October 25, 2026. Controlled update, drift exercise and cleanup remain pending.**
 
-Replace each pending entry only after performing and verifying it. Mock tests and CI establish configuration checks, not a live AWS deployment.
+Evidence source: terminal output supplied by Guot during the guided exercise. These are local AWS CLI and Terraform results, not independent console inspection. Resource IDs and identity details are omitted from this public excerpt.
+
+## Completed initial deployment
+
+I authenticated the admin-lab profile and checked the caller identity in us-east-1. I reviewed a saved plan for a dedicated VPC at 10.88.0.0/16 and subnet at 10.88.10.0/24. It proposed five additions, zero changes and zero destructions, without EC2 or existing AD lab resources.
+
+I applied the reviewed plan locally:
+
+```text
+Apply complete! Resources: 5 added, 0 changed, 0 destroyed.
+```
+
+Terraform outputs included the newly assigned VPC, subnet and security-group IDs and subnet_cidr = "10.88.10.0/24".
+
+The resource addresses returned by terraform state list were:
+
+```text
+aws_security_group.practice
+aws_subnet.practice
+aws_vpc.practice
+aws_vpc_security_group_egress_rule.outbound
+aws_vpc_security_group_ingress_rule.internal
+```
+
+A subsequent normal plan refreshed all five tracked resources and returned:
+
+```text
+No changes. Your infrastructure matches the configuration.
+```
+
+This demonstrates a successful initial deployment and configuration reconciliation. It does not establish application connectivity or production readiness. The network has no application hosts.
 
 ## Evidence checklist
 
-- [ ] STS identity and region checked locally; credentials not published.
-- [ ] Initial plan reviewed: 5 adds, 0 changes, 0 destroys.
-- [ ] Apply completed; date and actual result recorded.
-- [ ] AWS resource tags, dedicated CIDR and no public ingress verified.
-- [ ] terraform state list shows only the five resources in this directory.
-- [ ] Follow-up plan shows no changes.
+- [x] STS identity and region checked locally; credentials not published.
+- [x] Initial plan reviewed: 5 adds, 0 changes, 0 destroys.
+- [x] Apply completed: October 25, 2026; 5 added, 0 changed, 0 destroyed.
+- [ ] Independently inspect AWS resource tags, dedicated CIDR, DNS settings and group ingress after deployment. The reviewed plan shows the intended settings; console or explicit describe results are not yet supplied.
+- [x] terraform state list shows only the five resources in this directory.
+- [x] Follow-up normal plan shows no changes.
 - [ ] Controlled Environment tag update reviewed and applied.
 - [ ] Deliberate VPC tag drift detected and corrected through reviewed Terraform.
 - [ ] Destroy plan reviewed: only this lab's five resources.
 - [ ] Cleanup verified in state and AWS.
 
-## Record each result
+## What I learned
+
+- Resource references ordered VPC creation before its subnet and security group, and group creation before its rules.
+- AWS assigned real resource IDs during apply; configuration addresses stayed the same.
+- Terraform state tracks the five managed resources.
+- A no-change plan after refresh provides evidence that the tracked infrastructure matches the configuration at that point.
+
+## Record subsequent results
 
 Date:
 Step:
@@ -28,12 +65,10 @@ What I learned:
 Unexpected behavior and correction:
 Cleanup status:
 
-Do not publish state, saved plans, credentials, full identity responses or unredacted screenshots. Replace account IDs and resource IDs consistently in excerpts. Do not edit the real state to sanitize it; create a separate text excerpt.
+Keep state, saved plans, local variable files, credentials and full identity responses out of Git. Create sanitized text excerpts instead of altering actual state.
 
-## Interview description after completion
+## Current interview description
 
-Before deployment: "I prepared an isolated Terraform networking lab with mock tests and a deployment runbook."
+"I used Terraform to deploy an isolated AWS VPC, subnet and security-group rules. I reviewed the creation plan, applied it, inspected the five resource addresses in state and verified a no-change follow-up plan."
 
-After verified completion, adapt only to what you actually did: "I used Terraform to create an isolated VPC, subnet and security-group rules, verified state, reviewed a controlled tag change, investigated deliberate drift and removed the lab resources."
-
-This is a learning deployment, not production Terraform experience.
+Tag updates, deliberate drift remediation and cleanup are not yet completed in the supplied evidence. This is a learning deployment, not production Terraform experience.
