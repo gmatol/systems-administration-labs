@@ -25,7 +25,7 @@ records how I checked the account, recovered it and confirmed domain credential 
 The [Terraform AWS network deployment lab](practice/terraform-network-live/README.md)
 provides a separate create, verify, update, drift and cleanup walkthrough with
 mock-provider checks. It uses a dedicated VPC range and its own local state.
-**Status: prepared for deployment; live deployment and cleanup evidence pending.**
+**Status: initial deployment completed October 25, 2026; five resources tracked and a no-change follow-up plan verified from supplied terminal output. Tag updates, drift and cleanup evidence remain pending.**
 See the [evidence checklist](practice/terraform-network-live/EVIDENCE.md).
 The existing Windows AD environment remains managed by CloudFormation.
 
