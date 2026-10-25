@@ -1,10 +1,10 @@
 # Terraform AWS network deployment lab
 
-**Status: configuration and walkthrough prepared; live deployment and cleanup evidence pending.**
+**Status: initial AWS deployment completed October 25, 2026. Supplied terminal output confirms five resources added, five resource addresses in state and a no-change follow-up plan. Tag updates, drift and cleanup remain pending.**
 
 I am extending my Terraform mock-plan practice into a small end-to-end AWS learning deployment. The goal is to explain infrastructure decisions, review changes, inspect state, detect drift and clean up resources for Cloud Operations Engineer interview preparation.
 
-See [EVIDENCE.md](EVIDENCE.md) for actual results as they are collected. Do not describe this as completed or production experience before verification.
+See [EVIDENCE.md](EVIDENCE.md) for recorded results and remaining checkpoints. The full lifecycle exercise is still in progress; this is learning experience rather than production work.
 
 ## Scope and isolation
 
