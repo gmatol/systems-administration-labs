@@ -1,0 +1,6 @@
+# Copy to terraform.tfvars and replace the placeholder locally.
+# This example cannot be deployed unchanged.
+expected_account_id = "REPLACE_WITH_VERIFIED_12_DIGIT_ACCOUNT_ID"
+aws_profile         = "admin-lab"
+aws_region          = "us-east-1"
+environment         = "learning"

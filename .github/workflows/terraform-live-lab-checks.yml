@@ -1,0 +1,23 @@
+name: Terraform live lab checks
+on:
+  pull_request:
+    paths:
+      - 'practice/terraform-network-live/**'
+      - '.github/workflows/terraform-live-lab-checks.yml'
+permissions:
+  contents: read
+jobs:
+  validate-and-mock:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: practice/terraform-network-live
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.13.5
+      - run: terraform init -backend=false -input=false
+      - run: terraform fmt -check -recursive
+      - run: terraform validate
+      - run: terraform test -verbose

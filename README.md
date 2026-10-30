@@ -20,6 +20,15 @@ failed lookup, resolver comparison, repair and domain-connectivity checks.
 The [disabled-account recovery report](docs/incidents/2026-10-20-labuser002-account-recovery.md)
 records how I checked the account, recovered it and confirmed domain credential validation.
 
+## Terraform deployment portfolio
+
+The [Terraform AWS network deployment lab](practice/terraform-network-live/README.md)
+provides a separate create, verify, update, drift and cleanup walkthrough with
+mock-provider checks. It uses a dedicated VPC range and its own local state.
+**Status: deployment, in-place tag update and cleanup demonstrated on October 25, 2026 from supplied terminal output. Five resources were created, three updated and all five destroyed; state is empty and the final destroy plan has no remaining actions. Deliberate drift testing remains pending.**
+See the [evidence checklist](practice/terraform-network-live/EVIDENCE.md).
+The existing Windows AD environment remains managed by CloudFormation.
+
 ## Start here
 
 1. Read [START-HERE.md](START-HERE.md).
