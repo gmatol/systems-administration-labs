@@ -29,8 +29,9 @@ sequence rather than a requirement to complete each topic in one session.
 are verified. The MGMT01 DNS fault and recovery exercise is also verified; the remaining
 incident-response exercises are pending.
 
-Sessions 7-12 are scope placeholders, not implemented lab guides. Build them as you reach
-them. DHCP and router/NAT exercises must use an isolated local virtual network or another
+Sessions 7-12 remain mostly scope placeholders. A [guided file backup/restore lab](../practice/backup-restore/README.md)
+now supports part of Session 8; user execution is pending. Session 11 AWS recovery and
+later AD system-state/DR work remain pending. Build the remaining guides as you reach them. DHCP and router/NAT exercises must use an isolated local virtual network or another
 appropriate network lab: the included AWS subnet uses AWS DHCP and is not a drop-in
 network for a Windows DHCP server. Never bridge a practice DHCP server to the home LAN.
 

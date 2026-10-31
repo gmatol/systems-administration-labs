@@ -79,3 +79,11 @@ A server member provides domain-join practice, but is not a Windows 11 workstati
 [VALIDATION.md](VALIDATION.md) distinguishes starter-package checks, observed lab results
 and checks still pending. [Published evidence](evidence/published/README.md) includes
 labeled excerpts of my Group Policy, DNS troubleshooting and disabled-account recovery results.
+
+## Backup and restore practice
+
+The [guided backup lab](practice/backup-restore/README.md) covers fictional file creation,
+backup integrity checks, simulated loss and validated file restoration in Bash and PowerShell.
+User execution is pending; Linux workspace script checks are recorded separately.
+Windows Server Backup, AWS EBS recovery and AD disaster recovery remain environment-dependent
+follow-up work, not completed labs.
