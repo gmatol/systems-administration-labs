@@ -1,0 +1,33 @@
+name: Backup restore checks
+on:
+  pull_request:
+    paths:
+      - 'practice/backup-restore/**'
+      - '.github/workflows/backup-restore.yml'
+permissions:
+  contents: read
+jobs:
+  file-recovery:
+    name: File recovery (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            kind: bash
+          - os: windows-latest
+            kind: powershell
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Bash syntax
+        if: runner.os == 'Linux'
+        run: bash -n practice/backup-restore/file-backup.sh
+      - name: Recovery and failure propagation
+        run: python practice/backup-restore/test_recovery.py ${{ matrix.kind }}
