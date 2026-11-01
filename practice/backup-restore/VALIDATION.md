@@ -15,7 +15,7 @@ Existing completed AD incidents and Terraform work were preserved. No AGENTS.md 
 
 These results belong to the assistant's ephemeral Linux workspace, not Guot's Mac, Windows environment or AWS environment. They are not evidence of a completed personal lab.
 
-## Pending verification
+## Pending verification at initial review (2026-10-31)
 
 - Guided user practice and actual evidence capture.
 - macOS/BSD tar execution.
@@ -42,8 +42,23 @@ extraction errors and corrupt restored content; each must exit nonzero.
 Harness assertions fail the workflow step; no continue-on-error is used.
 
 Assistant Linux workspace: new Bash harness passed, including both negative
-cases (exit 1). GitHub-hosted Ubuntu and Windows results are pending review.
-PowerShell execution remains unverified until a Windows job succeeds.
+cases (exit 1). GitHub-hosted Ubuntu and Windows jobs both passed in
+[run 41320664265](https://github.com/gmatol/systems-administration-labs/actions/runs/41320664265)
+for head commit `cd12c5243526d2dcbd33bb53044048487ad3fd63`
+(PR merge checkout `01a888e432ffed4cc3b41a84b96b02f8d0e85c3d`).
+Reviewed both job logs: Ubuntu job 124889963090 and Windows job 124889962855.
+Both independently verified simulated loss, two recovered files and matching
+SHA256 values. Each platform rejected extraction failure and corruption with
+exit 1. Windows corruption reached the explicit "Recovery hash mismatch" error.
+PowerShell execution is now verified on the GitHub Windows runner using pwsh;
+Windows PowerShell 5.1 and personal Windows Server execution remain unverified.
+No script defect was found requiring a recovery-script change.
+
+Failure propagation evidence: the child scripts return nonzero for both injected
+faults. The harness asserts those failures are detected; unexpected script
+failures or assertion errors exit nonzero through the normal Actions run step.
+The negative cases are expected tests, so their successful detection leaves the
+job green. A deliberately failing end-to-end workflow run was not performed.
 
 Personal Mac and Windows Server exercises remain pending. Automated file-content
 recovery does not demonstrate Windows Server Backup, NTFS permission recovery,
