@@ -29,6 +29,16 @@ mock-provider checks. It uses a dedicated VPC range and its own local state.
 See the [evidence checklist](practice/terraform-network-live/EVIDENCE.md).
 The existing Windows AD environment remains managed by CloudFormation.
 
+## Microsoft 365 administration
+
+I am starting a separate [Microsoft 365 administration track](practice/microsoft-365/README.md)
+covering Entra ID, user lifecycle, roles, authentication security, Exchange Online,
+SharePoint Online, Teams and Intune where licensing permits.
+**Status: planned; tenant access and licenses are not yet confirmed.**
+Start with [tenant readiness and secure administration](practice/microsoft-365/modules/01-tenant-readiness.md).
+Local examples are simulations, not completed cloud exercises. Existing AD, AWS,
+Terraform, backup and AI engineering work remains separate.
+
 ## Start here
 
 1. Read [START-HERE.md](START-HERE.md).
@@ -43,6 +53,7 @@ The existing Windows AD environment remains managed by CloudFormation.
 | Track | Scope | Current status |
 |---|---|---|
 | Windows / Active Directory | AD DS, DNS, 150 synthetic accounts / five OUs, domain join, GPO, troubleshooting | Core deployment, user counts, domain join, first GPO, DNS fault recovery and disabled-account recovery verified; further recovery planned |
+| Microsoft 365 | Entra ID, lifecycle, security, collaboration and licensed endpoint management | Planned; tenant and licensing unconfirmed; readiness guide available |
 | Linux | Users, permissions, systemd, storage, patching, logs, backup/restore | Planned |
 | Networking | DHCP scopes/leases, isolated routing/NAT, DNS and firewall faults | Planned |
 | AWS operations | EC2, IAM, monitoring, backups and incident investigation | Lab infrastructure deployed with CloudFormation and accessed through SSM; further operations exercises planned |

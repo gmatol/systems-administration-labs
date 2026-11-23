@@ -42,3 +42,19 @@ practice require suitable hardware and must not be claimed from virtual labs.
 After each completed admin incident, use its sanitized evidence to evaluate the existing
 AI assistant. Preserve the current AI session recap, hands-on task, three check questions
 and next goal format.
+
+## Next administration project: Microsoft 365
+
+I selected the separate [Microsoft 365 track](../practice/microsoft-365/README.md)
+as my next hands-on administration project on November 3, 2026. It takes the next
+Tuesday/Thursday administration sessions; the earlier table remains the backlog,
+not a requirement to finish Linux/networking first. AI engineering remains unchanged.
+
+Follow Modules 01–08: readiness and secure administration; Entra identities/groups/roles;
+joiner/mover/leaver lifecycle; authentication security; Exchange; SharePoint and Teams;
+licensed Intune; troubleshooting and portfolio review. Allow roughly 12–16 sessions,
+with tenant or licensing blockers recorded rather than hidden.
+
+Start [Module 01](../practice/microsoft-365/modules/01-tenant-readiness.md) locally.
+Tenant, administrator access and licenses are unconfirmed. No subscription purchase,
+tenant changes or device enrollment is authorized by this roadmap.
