@@ -1,7 +1,7 @@
 # Microsoft 365 administration lab
 
 I am building a separate cloud administration portfolio track using fictional users.
-**Status: planned; tenant, administrator access, subscriptions and licenses are unconfirmed.**
+**Status: in progress; live tenant and administrator access verified. Standard-user least-privilege validation passed November 23, 2026. Full subscription and license inventory remains unverified.**
 Documentation and local simulations do not establish that I completed tenant exercises.
 
 ## Boundaries
@@ -37,6 +37,16 @@ Each later module must have its own detailed change plan before live execution.
 
 Start [Module 01](modules/01-tenant-readiness.md). Use the
 [evidence template](templates/evidence.md) and [readiness worksheet](templates/readiness.md).
+
+## Verified milestones
+
+- November 23, 2026: Standard-user administrative
+  access denial and role configuration verified live.
+- Module 02 remains in progress; group validation
+  and remaining acceptance checks are pending.
+
+See [Module 02 — Identity and Access Management](modules/02-identity-access-management.md)
+and the [published validation evidence](../../evidence/published/microsoft-365/2026-11-23-least-privilege-validation.md).
 
 ## Free activities and license gates
 
