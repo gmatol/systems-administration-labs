@@ -42,11 +42,18 @@ Start [Module 01](modules/01-tenant-readiness.md). Use the
 
 - November 23, 2026: Standard-user administrative
   access denial and role configuration verified live.
-- Module 02 remains in progress; group validation
-  and remaining acceptance checks are pending.
+- November 23, 2026: Existing security group inspected;
+  private Microsoft 365 collaboration group created and
+  ownership and membership verified.
+- November 23, 2026: Internal-only external file sharing
+  configured; authorized group email delivery verified.
+- Module 02 remains in progress; second-user and
+  unauthorized-access checks are pending.
 
 See [Module 02 — Identity and Access Management](modules/02-identity-access-management.md)
 and the [published validation evidence](../../evidence/published/microsoft-365/2026-11-23-least-privilege-validation.md).
+
+See the [group administration evidence](../../evidence/published/microsoft-365/2026-11-23-group-administration-validation.md).
 
 ## Free activities and license gates
 
