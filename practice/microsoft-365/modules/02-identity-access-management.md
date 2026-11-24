@@ -7,8 +7,9 @@ fictional users in an authorized Microsoft 365 lab tenant.
 
 ## Status
 
-IN PROGRESS — least-privilege checkpoint verified live
-on November 23, 2026.
+IN PROGRESS — least-privilege, group configuration
+and authorized Outlook communication checkpoints
+verified live on November 23, 2026.
 
 ## Learning objectives
 
@@ -27,13 +28,26 @@ on November 23, 2026.
 - [x] Standard-user Microsoft 365 Admin Center access denied.
 - [x] Administrative role configuration inspected.
 
-## Remaining activities
+## Additional verified live activities
 
-- [ ] Verify two fictional user accounts.
-- [ ] Create and verify a security group.
-- [ ] Create and verify a Microsoft 365 group.
-- [ ] Validate group membership and access.
-- [ ] Complete evidence and cleanup review.
+- Inspected LAB-M365-Learners security group.
+- Confirmed group owner, member and role assignability.
+- Created LAB-M365-Collaboration as a private Microsoft 365 group.
+- Verified collaboration group ownership and membership.
+- Restricted external file sharing to organizational users.
+- Verified authorized Outlook group mailbox access.
+- Sent and inspected a successfully delivered group message.
+
+## Activity checklist
+- [x] Inspect and verify the existing security group.
+- [x] Create and verify a Microsoft 365 group.
+- [x] Verify ownership and direct membership of both groups.
+- [x] Verify authorized Outlook group access and email delivery.
+- [x] Configure and verify internal-only file sharing.
+- [ ] Verify a second fictional user.
+- [ ] Test unauthorized nonmember resource access.
+- [ ] Test SharePoint file-sharing enforcement.
+- [ ] Complete remaining evidence and cleanup review.
 
 ## Security boundaries
 
@@ -54,3 +68,5 @@ remaining acceptance criteria are verified.
 ## Evidence
 
 See the [least-privilege validation record](../../../evidence/published/microsoft-365/2026-11-23-least-privilege-validation.md).
+
+See the [group administration validation record](../../../evidence/published/microsoft-365/2026-11-23-group-administration-validation.md).
